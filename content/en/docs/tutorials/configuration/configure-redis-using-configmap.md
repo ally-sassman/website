@@ -40,16 +40,16 @@ Follow the steps below to configure a Redis cache using data stored in a ConfigM
 
 1. Create a ConfigMap with an empty configuration block:
 
-  ```shell
-  cat <<EOF >./example-redis-config.yaml
-  apiVersion: v1
-  kind: ConfigMap
-  metadata:
-    name: example-redis-config
-  data:
-    redis-config: ""
-  EOF
-  ```
+```shell
+cat <<EOF >./example-redis-config.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: example-redis-config
+data:
+  redis-config: ""
+EOF
+```
 
 2. Apply the ConfigMap created above, along with a Redis pod manifest:
 
@@ -58,52 +58,52 @@ kubectl apply -f example-redis-config.yaml
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/pods/config/redis-pod.yaml
 ```
 
-  Examine the contents of the Redis pod manifest and note the following:
+Examine the contents of the Redis pod manifest and note the following:
 
-  * A volume named `config` is created by `spec.volumes[1]`
-  * The `key` and `path` under `spec.volumes[1].configMap.items[0]` exposes the `redis-config` key from the 
-    `example-redis-config` ConfigMap as a file named `redis.conf` on the `config` volume.
-  * The `config` volume is then mounted at `/redis-master` by `spec.containers[0].volumeMounts[1]`.
+* A volume named `config` is created by `spec.volumes[1]`
+* The `key` and `path` under `spec.volumes[1].configMap.items[0]` exposes the `redis-config` key from the 
+  `example-redis-config` ConfigMap as a file named `redis.conf` on the `config` volume.
+* The `config` volume is then mounted at `/redis-master` by `spec.containers[0].volumeMounts[1]`.
 
-  This has the net effect of exposing the data in `data.redis-config` from the `example-redis-config`
-  ConfigMap above as `/redis-master/redis.conf` inside the Pod.
+This has the net effect of exposing the data in `data.redis-config` from the `example-redis-config`
+ConfigMap above as `/redis-master/redis.conf` inside the Pod.
 
-  {{% code_sample file="pods/config/redis-pod.yaml" %}}
+{{% code_sample file="pods/config/redis-pod.yaml" %}}
 
 3. Examine the created objects:
 
-  ```shell
-  kubectl get pod/redis configmap/example-redis-config 
-  ```
+```shell
+kubectl get pod/redis configmap/example-redis-config 
+```
 
-  You should see the following output:
+You should see the following output:
 
-  ```
-  NAME        READY   STATUS    RESTARTS   AGE
-  pod/redis   1/1     Running   0          8s
+```
+NAME        READY   STATUS    RESTARTS   AGE
+pod/redis   1/1     Running   0          8s
 
-  NAME                             DATA   AGE
-  configmap/example-redis-config   1      14s
-  ```
+NAME                             DATA   AGE
+configmap/example-redis-config   1      14s
+```
 
-  Recall that we left `redis-config` key in the `example-redis-config` ConfigMap blank:
+Recall that we left `redis-config` key in the `example-redis-config` ConfigMap blank:
 
-  ```shell
-  kubectl describe configmap/example-redis-config
-  ```
+```shell
+kubectl describe configmap/example-redis-config
+```
 
-  You should see an empty `redis-config` key:
+You should see an empty `redis-config` key:
 
-  ```shell
-  Name:         example-redis-config
-  Namespace:    default
-  Labels:       <none>
-  Annotations:  <none>
+```shell
+Name:         example-redis-config
+Namespace:    default
+Labels:       <none>
+Annotations:  <none>
 
-  Data
-  ====
-  redis-config:
-  ```
+Data
+====
+redis-config:
+```
 
 4. Check the pod's current configuration:
 
