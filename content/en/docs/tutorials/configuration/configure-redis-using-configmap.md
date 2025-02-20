@@ -19,8 +19,6 @@ In this tutorial, you'll learn how to:
 * Verify that the configuration was correctly applied
 
 ## Requirements
-
-* Understand how to [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)
 * Have a Kubernetes cluster 
   * If you don't already have a cluster, you can create one by using [minikube](https://minikube.sigs.k8s.io/docs/tutorials/kubernetes_101/module1/) or use one of these Kubernetes playgrounds:
      * [Killercoda](https://killercoda.com/playgrounds/scenario/kubernetes)
