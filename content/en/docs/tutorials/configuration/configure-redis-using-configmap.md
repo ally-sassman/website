@@ -9,13 +9,13 @@ weight: 30
 
 <!-- overview -->
 
-This tutorial demonstrates how to configure Redis using a Kubernetes ConfigMap, building on the foundational task of [Configuring a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/). A ConfigMap allows you to inject configuration data into application pods, keeping containerized applications flexible and portable. By using a ConfigMap, you can separate configuration from container images, making it easier to adjust settings without modifying the application itself. Learn more about [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/).
+This tutorial demonstrates how to configure Redis using a Kubernetes ConfigMap, building on the foundational task of [Configuring a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/). A ConfigMap allows you to inject configuration data into application pods, keeping containerized applications flexible and portable. By using a ConfigMap, you can separate configuration from container images, making it easier to adjust settings without modifying the application itself.
 
 ## What you'll learn
 
 In this tutorial, you'll learn how to:
 * Create a ConfigMap with Redis configuration values
-* Create a Redis Pod that mounts and uses the created ConfigMap
+* Create a Redis pod that mounts and uses the created ConfigMap
 * Verify that the configuration was correctly applied
 
 ## Requirements
@@ -27,7 +27,7 @@ In this tutorial, you'll learn how to:
   * We recommend you run this tutorial on a cluster with at least two nodes that are not designated as control plane hosts.
 * Use `kubectl` 1.14 and above
   * To check the version, run `kubectl version`.
-  * Make sure your `kubect1` is configured to communicate with your cluster. 
+  * Make sure your `kubect1` is configured to communicate with your cluster.
 
 
 <!-- lessoncontent -->
@@ -62,7 +62,7 @@ Examine the contents of the Redis pod manifest and note the following:
   `example-redis-config` ConfigMap as a file named `redis.conf` on the `config` volume.
 * The `config` volume is then mounted at `/redis-master` by `spec.containers[0].volumeMounts[1]`.
 
-As a result, the data in `data.redis-config` from the `example-redis-config` ConfigMap is exposed as `/redis-master/redis.conf` inside the Pod.
+As a result, the data in `data.redis-config` from the `example-redis-config` ConfigMap is exposed as `/redis-master/redis.conf` inside the pod.
 
 {{% code_sample file="pods/config/redis-pod.yaml" %}}
 
@@ -167,7 +167,7 @@ maxmemory 2mb
 maxmemory-policy allkeys-lru
 ```
 
-7. Check the Redis Pod again using `redis-cli` via `kubectl exec` to see if the configuration was applied:
+7. Check the Redis pod again using `redis-cli` via `kubectl exec` to see if the configuration was applied:
 
 ```shell
 kubectl exec -it redis -- redis-cli
@@ -201,7 +201,7 @@ Note that it also remains at the default value of `noeviction`:
 
 The configuration values have not changed because we need to delete and recreate the pod, which will grab the updated values from the ConfigMap.
 
-9. Delete and recreate the Pod:
+9. Delete and recreate the pod:
 
 ```shell
 kubectl delete pod redis
@@ -240,7 +240,7 @@ It should also return the updated value of `allkeys-lru`:
 2) "allkeys-lru"
 ```
 
-And you're done! You've successfully created a ConfigMap with Redis configuration values, deployed a Redis pod that mounts and utilizes the ConfigMap, and verified that the configuration was applied correctly.
+And you're done! You've successfully created a ConfigMap with configuration values, deployed a Redis pod that mounts and utilizes the ConfigMap, and verified that the configuration was applied correctly.
 
 Make sure to clean up your work by deleting the created resources:
 
