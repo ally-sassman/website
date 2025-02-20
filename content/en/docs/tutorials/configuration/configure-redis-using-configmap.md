@@ -253,7 +253,6 @@ Make sure to clean up your work by deleting the created resources:
 kubectl delete pod/redis configmap/example-redis-config
 ```
 
-## Next Steps
+## Related tutorials
 
-* [Learn more about ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 * Follow an example of [Updating configuration via a ConfigMap](/docs/tutorials/configuration/updating-configuration-via-a-configmap/).
