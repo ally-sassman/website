@@ -9,26 +9,28 @@ weight: 30
 
 <!-- overview -->
 
-This page provides a real world example of how to configure Redis using a ConfigMap and builds upon the [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) task. 
+This tutorial demonstrates how to configure Redis using a Kubernetes ConfigMap, building on the foundational task of Understand [Configuring a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/). A ConfigMap allows you to inject configuration data into application pods, keeping containerized applications flexible and portable. By using a ConfigMap, you can separate configuration from container images, making it easier to adjust settings without modifying the application itself. 
 
+## {{% heading "What you'll learn" %}}
 
-
-## {{% heading "objectives" %}}
-
-
+In this tutorial, you'll learn how to:
 * Create a ConfigMap with Redis configuration values
 * Create a Redis Pod that mounts and uses the created ConfigMap
-* Verify that the configuration was correctly applied.
+* Verify that the configuration was correctly applied
 
 
+## {{% heading "Requirements" %}}
 
-## {{% heading "prerequisites" %}}
+* Understand how to [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
+Have a Kubernetes cluster 
+  * If you don't already have a cluster, you can create one by using [minikube](https://minikube.sigs.k8s.io/docs/tutorials/kubernetes_101/module1/) or use one of these Kubernetes playgrounds:
+     * [Killercoda](https://killercoda.com/playgrounds/scenario/kubernetes)
+     * [Kubernetes lab: Play with Kubernetes](https://labs.play-with-k8s.com/)
+  * We recommend you run this tutorial on a cluster with at least two nodes that are not designated as control plane hosts.
+* Use `kubectl` 1.14 and above
+  * To check the version, enter kubectl version.
+  * Make sure your `kubect1` is configured to communicate with your cluster. 
 
-
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
-* The example shown on this page works with `kubectl` 1.14 and above.
-* Understand [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 
 
 
