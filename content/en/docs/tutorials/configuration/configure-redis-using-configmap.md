@@ -11,7 +11,7 @@ weight: 30
 
 This tutorial demonstrates how to configure Redis using a Kubernetes ConfigMap, building on the foundational task of [Configuring a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/). A ConfigMap allows you to inject configuration data into application pods, keeping containerized applications flexible and portable. By using a ConfigMap, you can separate configuration from container images, making it easier to adjust settings without modifying the application itself. Learn more about [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 
-## What You'll Learn
+## What you'll learn
 
 In this tutorial, you'll learn how to:
 * Create a ConfigMap with Redis configuration values
@@ -33,7 +33,7 @@ In this tutorial, you'll learn how to:
 <!-- lessoncontent -->
 
 
-## Get Started
+## Get started
 
 1. Create a ConfigMap with an empty configuration block:
 
@@ -248,6 +248,6 @@ Make sure to clean up your work by deleting the created resources:
 kubectl delete pod/redis configmap/example-redis-config
 ```
 
-## Related Tutorials
+## Next steps
 
-* Follow an example of [Updating configuration via a ConfigMap](/docs/tutorials/configuration/updating-configuration-via-a-configmap/).
+* Follow the tutorial to [Update configuration via a ConfigMap](/docs/tutorials/configuration/updating-configuration-via-a-configmap/).
