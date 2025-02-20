@@ -19,6 +19,7 @@ In this tutorial, you'll learn how to:
 * Verify that the configuration was correctly applied
 
 ## Requirements
+
 * Have a Kubernetes cluster 
   * If you don't already have a cluster, you can create one by using [minikube](https://minikube.sigs.k8s.io/docs/tutorials/kubernetes_101/module1/) or use one of these Kubernetes playgrounds:
      * [Killercoda](https://killercoda.com/playgrounds/scenario/kubernetes)
@@ -33,8 +34,6 @@ In this tutorial, you'll learn how to:
 
 
 ## Get Started
-
-Follow the steps below to configure a Redis cache using data stored in a ConfigMap.
 
 1. Create a ConfigMap with an empty configuration block:
 
@@ -63,8 +62,7 @@ Examine the contents of the Redis pod manifest and note the following:
   `example-redis-config` ConfigMap as a file named `redis.conf` on the `config` volume.
 * The `config` volume is then mounted at `/redis-master` by `spec.containers[0].volumeMounts[1]`.
 
-This has the net effect of exposing the data in `data.redis-config` from the `example-redis-config`
-ConfigMap above as `/redis-master/redis.conf` inside the Pod.
+As a result, the data in `data.redis-config` from the `example-redis-config` ConfigMap is exposed as `/redis-master/redis.conf` inside the Pod.
 
 {{% code_sample file="pods/config/redis-pod.yaml" %}}
 
@@ -201,8 +199,7 @@ Note that it also remains at the default value of `noeviction`:
 2) "noeviction"
 ```
 
-The configuration values have not changed because the Pod needs to be restarted to grab updated
-values from the associated ConfigMap. 
+The configuration values have not changed because we need to delete and recreate the pod, which will grab the updated values from the ConfigMap.
 
 9. Delete and recreate the Pod:
 
@@ -211,7 +208,7 @@ kubectl delete pod redis
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/pods/config/redis-pod.yaml
 ```
 
-10. Check the configuration values have now been updated:
+10. Check that the configuration values have now been updated:
 
 ```shell
 kubectl exec -it redis -- redis-cli
